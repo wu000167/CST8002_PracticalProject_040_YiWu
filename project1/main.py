@@ -56,3 +56,17 @@ def load_records(csv_path, limit=None):
                 break
 
     return records
+
+def print_records(records):
+    """
+    Loop over the list and print some fields.
+    We show ORIGINAL header names in the text so it is very clear.
+    """
+    i = 1
+    for r in records:
+        print("[" + str(i) + "] "
+              + FIELD_DATA_FIELD_EN + ": " + str(r.data_field_en)
+              + " | "
+              + FIELD_DATA_VALUE + ": " + str(r.data_value))
+        i += 1
+
