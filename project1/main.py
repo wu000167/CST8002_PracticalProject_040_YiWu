@@ -70,3 +70,24 @@ def print_records(records):
               + FIELD_DATA_VALUE + ": " + str(r.data_value))
         i += 1
 
+def main():
+    #show banner
+    show_name_banner("Yi Wu")
+
+    #load records
+    try:
+        items = load_records(CSV_FILE, limit=RECORD_LIMIT)
+    except FileNotFoundError as e:
+        print("ERROR:", e)
+        print("Tip: put the CSV next to main.py or change CSV_FILE in the code.")
+        return
+    except ValueError as e:
+        print("ERROR:", e)
+        print("Tip: check the header names in record.py and your CSV file.")
+        return
+
+    print_records(items)
+
+
+    if __name__ == "__main__":
+         main()
