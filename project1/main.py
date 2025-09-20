@@ -40,12 +40,12 @@ def load_records(csv_path, limit=None):
     records = []
 
     # First check the headers (the first row)
-    with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
+    with open(csv_path, "r", encoding="cp1252", newline="") as f:
         reader = csv.DictReader(f)
         validate_headers(reader.fieldnames)
 
     # Then read and build objects
-    with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
+    with open(csv_path, "r", encoding="cp1252", newline="") as f:
         reader = csv.DictReader(f)
         count = 0
         for row in reader:
@@ -89,5 +89,5 @@ def main():
     print_records(items)
 
 
-    if __name__ == "__main__":
-         main()
+if __name__ == "__main__":
+    main()
