@@ -15,19 +15,21 @@ from dataclasses import dataclass
 from typing import Dict, Any, List, Tuple
 
 # Define constants for column names in the dataset
-FIELD_DATA_FIELD_EN = "Data_Field_EN_Champ_de_la_donnée"
-FIELD_DATA_FIELD_FR = "Data_Field_FR_Champ_de_la_donnée"
-FIELD_DATA_VALUE    = "Data_Value_Valeur_de_la_donnée"
-FIELD_VALUE_DESC_EN = "Value_Description_EN_Description_de_la_valeur"
-FIELD_VALUE_DESC_FR = "Value_Description_FR_Description_du_la_valeur"
+FIELD_SITE_ID = "Site identification"
+FIELD_YEAR = "Year"
+FIELD_TRANSECT = "Transect"
+FIELD_QUADRAT = "Quadrat"
+FIELD_SPECIES_COMMON = "Species Common Name"
+FIELD_COUNT = "Count"
 
 # Map ORIGINAL header -> simple Python attribute name (snake_case)
 HEADER_TO_ATTR = {
-    FIELD_DATA_FIELD_EN: "data_field_en",
-    FIELD_DATA_FIELD_FR: "data_field_fr",
-    FIELD_DATA_VALUE:    "data_value",
-    FIELD_VALUE_DESC_EN: "value_description_en",
-    FIELD_VALUE_DESC_FR: "value_description_fr",
+    FIELD_SITE_ID:        "site_id",
+    FIELD_YEAR:           "year",
+    FIELD_TRANSECT:       "transect",
+    FIELD_QUADRAT:        "quadrat",
+    FIELD_SPECIES_COMMON: "species_common_name",
+    FIELD_COUNT:          "count",
 }
 
 class IntertidalRecord:
@@ -37,20 +39,22 @@ class IntertidalRecord:
     """
 
     def __init__(self,
-                 data_field_en=None,
-                 data_field_fr=None,
-                 data_value=None,
-                 value_description_en=None,
-                 value_description_fr=None):
+                 site_id=None,
+                 year=None,
+                 transect=None,
+                 quadrat=None,
+                 species_common_name=None,
+                 count=None):
 
-        self.data_field_en = data_field_en
-        self.data_field_fr = data_field_fr
-        self.data_value = data_value
-        self.value_description_en = value_description_en
-        self.value_description_fr = value_description_fr
+        self.site_id = site_id
+        self.year = year
+        self.transect = transect
+        self.quadrat = quadrat
+        self.species_common_name = species_common_name
+        self.count = count
 
     @classmethod
-    def from_row(cls, row_dict):
+    def from_row(cls, row_dict: dict):
         """
         Create an IntertidalRecord from a csv.DictReader row (a dict).
         """
