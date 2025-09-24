@@ -10,11 +10,12 @@ Date: 2025-09-20
 
 import csv
 import os
-from record import IntertidalRecord, HEADER_TO_ATTR, FIELD_DATA_FIELD_EN, FIELD_DATA_VALUE
+
+from record import IntertidalRecord, HEADER_TO_ATTR, FIELD_SPECIES_COMMON, FIELD_COUNT,FIELD_YEAR,FIELD_SITE_ID
 from shname import show_name_banner
 
 # CSV placeholder file path
-CSV_FILE = "pacific_rim_npr_coastalmarine_intertidal_bivalves_1997-2017_data_dictionary.csv"
+CSV_FILE = "pacific_rim_npr_coastalmarine_intertidal_bivalves_clams_1997-2017_data.csv"
 RECORD_LIMIT = 6   # load first 6 rows to demonstrate
 
 def validate_headers(fieldnames):
@@ -26,6 +27,14 @@ def validate_headers(fieldnames):
     missing = [h for h in HEADER_TO_ATTR.keys() if h not in found]
     if missing:
         raise ValueError("CSV missing required columns: " + str(missing))
+    
+def _is_french_header_row(row: dict) -> bool:
+    """
+    Some files include a 2nd header row in French (row 2).
+    Skip it if detected.
+    """
+    return (row.get(FIELD_YEAR, "") == "Année"
+            or row.get(FIELD_SITE_ID, "") == "Identification du site")
 
 
 def load_records(csv_path, limit=None):
@@ -49,6 +58,9 @@ def load_records(csv_path, limit=None):
         reader = csv.DictReader(f)
         count = 0
         for row in reader:
+            # Skip the FR header line (row 2)
+            if _is_french_header_row(row):
+                continue
             rec = IntertidalRecord.from_row(row)
             records.append(rec)
             count += 1
@@ -62,13 +74,9 @@ def print_records(records):
     Loop over the list and print some fields.
     We show ORIGINAL header names in the text so it is very clear.
     """
-    i = 1
-    for r in records:
-        print("[" + str(i) + "] "
-              + FIELD_DATA_FIELD_EN + ": " + str(r.data_field_en)
-              + " | "
-              + FIELD_DATA_VALUE + ": " + str(r.data_value))
-        i += 1
+    for i, r in enumerate(records, 1):
+        print(f"[{i}] {FIELD_SPECIES_COMMON}: {r.species_common_name} | "
+              f"{FIELD_COUNT}: {r.count}")
 
 def main():
     #show banner
