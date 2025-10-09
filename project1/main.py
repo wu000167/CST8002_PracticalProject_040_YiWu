@@ -11,8 +11,8 @@ Date: 2025-09-20
 import csv
 import os
 
-from record import IntertidalRecord, HEADER_TO_ATTR, FIELD_SPECIES_COMMON, FIELD_COUNT,FIELD_YEAR,FIELD_SITE_ID
-from shname import show_name_banner
+from project1.model.record import IntertidalRecord, HEADER_TO_ATTR, FIELD_SPECIES_COMMON, FIELD_COUNT,FIELD_YEAR,FIELD_SITE_ID
+from project1.util.shname import show_name_banner
 
 # CSV placeholder file path
 CSV_FILE = "pacific_rim_npr_coastalmarine_intertidal_bivalves_clams_1997-2017_data.csv"
