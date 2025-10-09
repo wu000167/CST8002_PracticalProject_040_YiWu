@@ -32,7 +32,7 @@ class RecordService:
         for k, v in patch.items():
             setattr(rec, k, v)
         return True
-    
+        
     # Export current records to a new CSV file, returning the path to the file
     def delete(self, index: int) -> bool:
         if 0 <= index < len(self.records):

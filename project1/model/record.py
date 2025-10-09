@@ -65,3 +65,38 @@ class IntertidalRecord:
                 value = value.strip()
             kwargs[attr] = value
         return cls(**kwargs)
+
+    def to_dict(self) -> dict:
+        """Convert this record back to ORIGINAL CSV headers -> values."""
+        inv = {v: k for k, v in HEADER_TO_ATTR.items()}
+        return {
+            inv["site_id"]: self.site_id,
+            inv["year"]: self.year,
+            inv["transect"]: self.transect,
+            inv["quadrat"]: self.quadrat,
+            inv["species_common_name"]: self.species_common_name,
+            inv["count"]: self.count,
+        }
+
+    def __str__(self) -> str:
+        """Human-friendly display when printing a single record."""
+        return (
+            f"{FIELD_SPECIES_COMMON}: {self.species_common_name}\n"
+            f"{FIELD_COUNT}: {self.count}\n"
+            f"{FIELD_YEAR}: {self.year}\n"
+            f"{FIELD_SITE_ID}: {self.site_id}\n"
+            f"{FIELD_TRANSECT}: {self.transect}\n"
+            f"{FIELD_QUADRAT}: {self.quadrat}"
+        )
+
+    def __repr__(self) -> str:
+        """Debug one-liner shown in lists etc."""
+        return (
+            "IntertidalRecord("
+            f"{FIELD_SPECIES_COMMON}={self.species_common_name!r}, "
+            f"{FIELD_COUNT}={self.count!r}, "
+            f"{FIELD_YEAR}={self.year!r}, "
+            f"{FIELD_SITE_ID}={self.site_id!r}, "
+            f"{FIELD_TRANSECT}={self.transect!r}, "
+            f"{FIELD_QUADRAT}={self.quadrat!r})"
+        )

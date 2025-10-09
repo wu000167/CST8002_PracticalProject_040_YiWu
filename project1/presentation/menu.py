@@ -40,6 +40,7 @@ def run():
             except Exception as e:
                 print("ERROR:", e)
 
+
         elif choice == "2":
             outp = svc.export_csv()
             print("Exported to:", outp)
