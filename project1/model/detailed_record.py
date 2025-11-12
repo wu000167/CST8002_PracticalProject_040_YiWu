@@ -2,30 +2,38 @@
 <detailed_record.py>
 Yi Wu (040787698)
 Purpose:
-    Defines the DetailedRecord subclass, which inherits from BaseRecord.
-    It overrides the display() method to provide a verbose multi-line
-    representation of the dataset record.
-    This demonstrates method overriding (polymorphism).
+    Defines DetailedRecord subclass (inherits from BaseRecord),
+    providing a multi-line detailed format.
 """
 from .base_record import BaseRecord
 
 
 class DetailedRecord(BaseRecord):
-    """
-    DetailedRecord extends BaseRecord.
-    It overrides display() to present a detailed, multi-line output format.
-    """
+    """Detailed, multi-line format for complete info."""
+
+    def __init__(self,
+                 site_identification: str = "",
+                 year: str = "",
+                 transect: str = "",
+                 quadrat: str = "",
+                 species_common_name: str = "",
+                 count: int | str = 0):
+        super().__init__(site_identification=site_identification,
+                         year=year,
+                         transect=transect,
+                         quadrat=quadrat,
+                         species_common_name=species_common_name,
+                         count=count)
 
     def display(self) -> str:
-        """
-        Overridden display method providing a detailed representation.
-        """
+        """Multi-line format for detailed view."""
         return (
             "=== Detailed Record ===\n"
-            f"Species Common Name: {self.species_common_name}\n"
-            f"Site: {self.site}\n"
+            f"Site identification: {self.site_identification}\n"
             f"Year: {self.year}\n"
-            f"Abundance: {self.abundance}\n"
+            f"Transect: {self.transect}\n"
+            f"Quadrat: {self.quadrat}\n"
+            f"Species Common Name: {self.species_common_name}\n"
+            f"Count: {self.count}\n"
+            "------------------------"
         )
-
-

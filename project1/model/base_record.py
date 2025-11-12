@@ -3,44 +3,48 @@
 Yi Wu (040787698)
 Purpose:
     Defines the BaseRecord superclass for the Intertidal Bivalves dataset.
-    This class will be inherited by DetailedRecord and SummaryRecord to
-    demonstrate the advanced topic: Inheritance and Polymorphism.
+    This class is inherited by DetailedRecord and SummaryRecord to
+    demonstrate Inheritance and Polymorphism (Part 3).
 """
+
 class BaseRecord:
     """
-    BaseRecord represents a generic record in the dataset.
-    It stores the common attributes shared by all record types.
+    Represents a single record (row) from the dataset.
+    Common attributes used by both SummaryRecord and DetailedRecord.
     """
 
     def __init__(self,
-                 species_common_name: str,
-                 site: str,
-                 year: str,
-                 abundance: str):
-        # === Dataset column names ===
-        self.species_common_name = species_common_name
-        self.site = site
+                 site_identification: str = "",
+                 year: str = "",
+                 transect: str = "",
+                 quadrat: str = "",
+                 species_common_name: str = "",
+                 count: int | str = 0):
+        """
+        Initialize the BaseRecord with dataset columns.
+        Default values prevent missing-argument errors.
+        """
+        self.site_identification = site_identification
         self.year = year
-        self.abundance = abundance
+        self.transect = transect
+        self.quadrat = quadrat
+        self.species_common_name = species_common_name
+        self.count = count
 
     def to_dict(self) -> dict:
-        """
-        Converts this record to a dictionary, preserving dataset column names.
-        """
+        """Convert this record into a dictionary (for saving/export)."""
         return {
-            "species_common_name": self.species_common_name,
-            "site": self.site,
-            "year": self.year,
-            "abundance": self.abundance
+            "Site identification": self.site_identification,
+            "Year": self.year,
+            "Transect": self.transect,
+            "Quadrat": self.quadrat,
+            "Species Common Name": self.species_common_name,
+            "Count": self.count
         }
 
     def display(self) -> str:
-        """
-        Default display method (will be overridden by subclasses).
-        This is the polymorphic target method.
-        """
-        return (f"Species: {self.species_common_name}, "
-                f"Site: {self.site}, "
-                f"Year: {self.year}, "
-                f"Abundance: {self.abundance}")
-
+        """Default (can be overridden)."""
+        return (
+            f"Site: {self.site_identification} | Year: {self.year} | "
+            f"Species: {self.species_common_name} | Count: {self.count}"
+        )

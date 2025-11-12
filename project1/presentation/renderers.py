@@ -19,7 +19,8 @@ def render_records(records: List[BaseRecord]) -> str:
     if not records:
         return "No records available to display."
 
-    lines = [record.display() for record in records]
+    lines = [str(record) for record in records]
+    
     return "\n".join(lines)
 
 
